@@ -31,142 +31,139 @@ Display the original, lower contrast, and higher contrast images.
 Split the image (boy.jpg) into B, G, R components and display the channels
 
 ## Program Developed By:
-- **Name:** [Your Name Here]  
-- **Register Number:** [Your Register Number Here]
+- **Name:** SABEESHWARAN  
+- **Register Number:** 212225230234
 
   ### Ex. No. 01
 
-#### 1. Read the image ('Eagle_in_Flight.jpg') using OpenCV imread() as a grayscale image.
+#### 1. Read the image ('vijay.jpg') using OpenCV imread() as a grayscale image.
 ```python
-# YOUR CODE HERE
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+img=cv2.imread("vijay.webp",cv2.IMREAD_COLOR)
+img_rgb=cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
+img_gray=cv2.cvtColor(img_rgb,cv2.COLOR_RGB2GRAY)
 ```
 
 #### 2. Print the image width, height & Channel.
 ```python
-# YOUR CODE HERE
+img.shape
 ```
 
 #### 3. Display the image using matplotlib imshow().
 ```python
-# YOUR CODE HERE
+plt.imshow(img_rgb)
+plt.imshow(img_gray,cmap='gray')
 ```
 
-#### 4. Save the image as a PNG file using OpenCV imwrite().
+#### 4. Save the image file using OpenCV imwrite().
 ```python
-# YOUR CODE HERE
+cv2.imwrite('vijaytrisha.webp',img)
 ```
 
 #### 5. Read the saved image above as a color image using cv2.cvtColor().
 ```python
-# YOUR CODE HERE
+img=cv2.imread('vijaytrisha.webp')
 ```
 
-#### 6. Display the Colour image using matplotlib imshow() & Print the image width, height & channel.
+
+#### 6. Crop the image to extract any specific object from the image.
 ```python
-# YOUR CODE HERE
+crop=img_rgb[50:500,550:900]
+plt.imshow(crop)
 ```
 
-#### 7. Crop the image to extract any specific (Eagle alone) object from the image.
+#### 7. Resize the image up by a factor of 2x.
 ```python
-# YOUR CODE HERE
+res=cv2.resize(crop,(800,900))
+plt.imshow(res)
 ```
 
-#### 8. Resize the image up by a factor of 2x.
+#### 8. Flip the cropped/resized image horizontally.
 ```python
-# YOUR CODE HERE
+flip=cv2.flip(res,1)
+plt.imshow(flip)
 ```
 
-#### 9. Flip the cropped/resized image horizontally.
+#### 9. Read in the image ('stalin.jpg').
 ```python
-# YOUR CODE HERE
+img2=cv2.imread('stalin.jpg',cv2.IMREAD_COLOR)
+img2rgb=cv2.cvtColor(img2,cv2.COLOR_BGR2RGB)
+plt.imshow(img2rgb)
 ```
 
-#### 10. Read in the image ('Apollo-11-launch.jpg').
+#### 10. Add the following text to the dark area at the bottom of the image (centered on the image):
 ```python
-# YOUR CODE HERE
+cv2.putText(img2rgb,"Former Chief Minister",(25,250),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,0),15)
+cv2.putText(img2rgb,"Former Chief Minister",(25,250),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,255),2)
+plt.imshow(img2rgb)
 ```
 
-#### 11. Add the following text to the dark area at the bottom of the image (centered on the image):
+#### 11. Draw a rectangle that encompasses the launch tower and the rocket.
 ```python
-text = 'Apollo 11 Saturn V Launch, July 16, 1969'
-font_face = cv2.FONT_HERSHEY_PLAIN
-# YOUR CODE HERE: use putText()
+rect=cv2.rectangle(img3rgb,(300,25),(100,400),(255,255,255),5)
 ```
 
-#### 12. Draw a magenta rectangle that encompasses the launch tower and the rocket.
+#### 12. Display the final annotated image.
 ```python
-rect_color = magenta
-# YOUR CODE HERE
+plt.imshow(rect)
 ```
 
-#### 13. Display the final annotated image.
+#### 13. Read the image ('vijay.jpg').
 ```python
-# YOUR CODE HERE
+img=cv2.imread("vijay.webp",cv2.IMREAD_COLOR)
+img_rgb=cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
 ```
 
-#### 14. Read the image ('Boy.jpg').
+#### 14. Adjust the brightness of the image.
 ```python
-# YOUR CODE HERE
+m = np.ones(img_rgb.shape, dtype="uint8") * 50
+bright = cv2.add(img_rgb, m)
+plt.imshow(bright)
 ```
 
-#### 15. Adjust the brightness of the image.
+#### 15. Modify the image contrast.
 ```python
-# Create a matrix of ones (with data type float64)
-# matrix_ones = 
-# YOUR CODE HERE
+contrast = cv2.convertScaleAbs(img_rgb, alpha=1.2, beta=0)
+plt.imshow(contrast)
 ```
 
-#### 16. Create brighter and darker images.
+#### 16. Split the image into the B,G,R components & Display the channels.
 ```python
-img_brighter = cv2.add(img, matrix)
-img_darker = cv2.subtract(img, matrix)
-# YOUR CODE HERE
+b,g,r=cv2.split(img)
+plt.imshow(b)
+plt.imshow(g)
+plt.imshow(r)
 ```
 
-#### 17. Display the images (Original Image, Darker Image, Brighter Image).
+#### 17. Merged the R, G, B , displays along with the original image
 ```python
-# YOUR CODE HERE
+merged = cv2.merge([r, g, b])
+
+plt.imshow(merged)
+
 ```
 
-#### 18. Modify the image contrast.
+#### 18. Split the image into the H, S, V components & Display the channels.
 ```python
-# Create two higher contrast images using the 'scale' option with factors of 1.1 and 1.2 (without overflow fix)
-matrix1 = 
-matrix2 = 
-# img_higher1 = 
-# img_higher2 = 
-# YOUR CODE HERE
+h, s, v = cv2.split(hsv)
 ```
-
-#### 19. Display the images (Original, Lower Contrast, Higher Contrast).
+#### 19. Merged the H, S, V, displays along with original image.
 ```python
-# YOUR CODE HERE
-```
-
-#### 20. Split the image (boy.jpg) into the B,G,R components & Display the channels.
-```python
-# YOUR CODE HERE
-```
-
-#### 21. Merged the R, G, B , displays along with the original image
-```python
-# YOUR CODE HERE
-```
-
-#### 22. Split the image into the H, S, V components & Display the channels.
-```python
-# YOUR CODE HERE
-```
-#### 23. Merged the H, S, V, displays along with original image.
-```python
-# YOUR CODE HERE
+merged_hsv = cv2.merge([h, s, v])
 ```
 
 ## Output:
-- **i)** Read and Display an Image.  
-- **ii)** Adjust Image Brightness.  
-- **iii)** Modify Image Contrast.  
-- **iv)** Generate Third Image Using Bitwise Operations.
+- **i)** Read and Display an Image.
+- <img width="552" height="379" alt="download" src="https://github.com/user-attachments/assets/dc7bcd5b-bb9c-47fd-82d4-eb26bf4c21e0" />
+  
+- **ii)** Adjust Image Brightness.
+- <img width="552" height="379" alt="download" src="https://github.com/user-attachments/assets/6a0fb006-b15e-4091-8e4f-59838852eeb0" />
+  
+- **iii)** Modify Image Contrast.
+- <img width="552" height="379" alt="download" src="https://github.com/user-attachments/assets/6a8e02cc-715e-4bef-a812-c9888a0e1e85" />
+
 
 ## Result:
 Thus, the images were read, displayed, brightness and contrast adjustments were made, and bitwise operations were performed successfully using the Python program.
